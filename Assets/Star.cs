@@ -125,26 +125,26 @@ public class Star : MonoBehaviour
             }
             Debug.Log($"list size: {allData.Count}");
 
-            Sol = Instantiate(starPrefab);
-            SetStarProperties(Sol, 'G');
-            Sol.transform.position = new Vector3(0f, 1.0f, 0f);
-
             for (int i = 0; i < allData.Count; i++)
             {
-                if ((allData[i].dist <= maxDistance * 3.262) || ((allData[i].hip != "") && (allData[i].dist <= 250f * 3.262))) //TODO: currently only loading stars within 25 light years
+                if ((allData[i].dist * 3.262 <= maxDistance) || ((allData[i].hip != "") && (allData[i].dist * 3.262 <= 2000f))) //TODO: currently only loading stars within 25 light years
                 {
                     GameObject starObject = Instantiate(starPrefab);
                     SetStarProperties(starObject, allData[i].spect);
-                    starObject.transform.position = new Vector3(allData[i].x0, allData[i].z0, allData[i].y0);
+                    starObject.transform.position = new Vector3(allData[i].x0, allData[i].z0 + 1, allData[i].y0);
                     starObject.name = "Star" + i;
                     allStars.Add(starObject);
                     if (allData[i].hip != "")
                     {
                         map.Add(allData[i].hip, starObject);
                     }
-                    if (allData[i].hip == "11767")
+                    if (i == 106366)
                     {
-                        Debug.Log(i);
+                        Debug.Log(allData[i].hip);
+                        Debug.Log(allData[i].x0);
+                        Debug.Log(allData[i].y0);
+                        Debug.Log(allData[i].z0);
+                        Debug.Log(allData[i].spect);
                     }
                 }
                 
